@@ -27,3 +27,6 @@ dist-ssr
 /backend/__pycache__/
 /backend/venv/
 /backend/.env
+
+
+donkey
