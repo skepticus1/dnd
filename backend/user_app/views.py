@@ -8,19 +8,29 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 
-class Sign_Up(APIView):
+class Register(APIView):
 
     def post(self, request):
         email = request.data.get("email")
         password = request.data.get("password")
         username = email
+        first_name = request.data.get("first_name")
+        last_name = request.data.get("last_name")
         new_user = User.objects.create_user(
             username = username,
             email = email,
-            password = password
+            password = password,
+            first_name = first_name,
+            last_name = last_name,
         )
         token = Token.objects.create(user = new_user)
-        return Response({"user":new_user.email, "token":token.key}, status=HTTP_201_CREATED)
+        return Response({
+            "user":new_user.email,
+            "token":token.key,
+            "username":new_user.username,
+            "first_name":new_user.first_name,
+            "last_name":new_user.last_name,
+        }, status=HTTP_201_CREATED)
 
 
 class Info(APIView):
@@ -28,7 +38,15 @@ class Info(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response(request.user.email)
+        user_data = {
+            "id":request.user.id,
+            "username":request.user.username,
+            "email":request.user.email,
+            "first_name":request.user.first_name,
+            "last_name":request.user.last_name,
+        }
+        print(user_data)
+        return Response(user_data)
     
 class Login(APIView):
     def post(self, request):
@@ -37,7 +55,11 @@ class Login(APIView):
         user = authenticate(username = username, password=password)
         if user:
             token, created = Token.objects.get_or_create(user = user)
-            return Response(token.key)
+            return Response({
+                "username":user.username,
+                "first_name":user.first_name,
+                "last_name":user.last_name
+             })
         else:
             return Response("INVALID CREDENTIALS", HTTP_404_NOT_FOUND)
         
