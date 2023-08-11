@@ -1,6 +1,22 @@
-nav {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 40px;
+body {
+    padding-top:50px;
+}
+
+.img_background {
+    background-image: url('./assets/background001.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+}
+
+.login_card {
+    max-width: 300px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.navbar_padding {
+    padding-left: 20px;
+    padding-right: 20px;
 }
