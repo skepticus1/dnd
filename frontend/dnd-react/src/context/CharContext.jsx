@@ -7,6 +7,8 @@ export const useCharacter = () => {
 }
 
 export const CharacterProvider = ({ children }) => {
+    const defaultValue = 0
+
     // states for character main details
     const [characterName, setCharacterName] = useState('');
     const [background, setBackground] = useState('')
@@ -16,38 +18,95 @@ export const CharacterProvider = ({ children }) => {
     const [alignment, setAlignment] = useState('')
 
     // states for character attributes
-    const [strValue, setStrValue] = useState('')
-    const [strBonus, setStrBonus] = useState('')
-    const [dexValue, setDexValue] = useState('')
-    const [dexBonus, setDexBonus] = useState('')
-    const [conValue, setConValue] = useState('')
-    const [conBonus, setConBonus] = useState('')
-    const [intValue, setIntValue] = useState('')
-    const [intBonus, setIntBonus] = useState('')
-    const [wisValue, setWisValue] = useState('')
-    const [wisBonus, setWisBonus] = useState('')
-    const [chaValue, setChaValue] = useState('')
-    const [chaBonus, setChaBonus] = useState('')
+    const [strValue, setStrValue] = useState(defaultValue)
+    const [strBonus, setStrBonus] = useState(defaultValue)
+    const [dexValue, setDexValue] = useState(defaultValue)
+    const [dexBonus, setDexBonus] = useState(defaultValue)
+    const [conValue, setConValue] = useState(defaultValue)
+    const [conBonus, setConBonus] = useState(defaultValue)
+    const [intValue, setIntValue] = useState(defaultValue)
+    const [intBonus, setIntBonus] = useState(defaultValue)
+    const [wisValue, setWisValue] = useState(defaultValue)
+    const [wisBonus, setWisBonus] = useState(defaultValue)
+    const [chaValue, setChaValue] = useState(defaultValue)
+    const [chaBonus, setChaBonus] = useState(defaultValue)
 
     // states for character skills    
-    const [acrobaticsValue, setAcrobaticsValue] = useState('');
-    const [animalHandlingValue, setAnimalHandlingValue] = useState('');
-    const [arcanaValue, setArcanaValue] = useState('');
-    const [athleticsValue, setAthleticsValue] = useState('');
-    const [deceptionValue, setDeceptionValue] = useState('');
-    const [historyValue, setHistoryValue] = useState('');
-    const [insightValue, setInsightValue] = useState('');
-    const [intimidationValue, setIntimidationValue] = useState('');
-    const [investigationValue, setInvestigationValue] = useState('');
-    const [medicineValue, setMedicineValue] = useState('');
-    const [natureValue, setNatureValue] = useState('');
-    const [perceptionValue, setPerceptionValue] = useState('');
-    const [performanceValue, setPerformanceValue] = useState('');
-    const [persuasionValue, setPersuasionValue] = useState('');
-    const [religionValue, setReligionValue] = useState('');
-    const [sleightOfHandValue, setSleightOfHandValue] = useState('');
-    const [stealthValue, setStealthValue] = useState('');
-    const [survivalValue, setSurvivalValue] = useState('');
+    const [acrobaticsValue, setAcrobaticsValue] = useState(defaultValue);
+    const [animalHandlingValue, setAnimalHandlingValue] = useState(defaultValue);
+    const [arcanaValue, setArcanaValue] = useState(defaultValue);
+    const [athleticsValue, setAthleticsValue] = useState(defaultValue);
+    const [deceptionValue, setDeceptionValue] = useState(defaultValue);
+    const [historyValue, setHistoryValue] = useState(defaultValue);
+    const [insightValue, setInsightValue] = useState(defaultValue);
+    const [intimidationValue, setIntimidationValue] = useState(defaultValue);
+    const [investigationValue, setInvestigationValue] = useState(defaultValue);
+    const [medicineValue, setMedicineValue] = useState(defaultValue);
+    const [natureValue, setNatureValue] = useState(defaultValue);
+    const [perceptionValue, setPerceptionValue] = useState(defaultValue);
+    const [performanceValue, setPerformanceValue] = useState(defaultValue);
+    const [persuasionValue, setPersuasionValue] = useState(defaultValue);
+    const [religionValue, setReligionValue] = useState(defaultValue);
+    const [sleightOfHandValue, setSleightOfHandValue] = useState(defaultValue);
+    const [stealthValue, setStealthValue] = useState(defaultValue);
+    const [survivalValue, setSurvivalValue] = useState(defaultValue);
+
+    // saving throw states
+    const [strSaving, setStrSaving] = useState(defaultValue);
+    const [dexSaving, setDexSaving] = useState(defaultValue);
+    const [conSaving, setConSaving] = useState(defaultValue);
+    const [intSaving, setIntSaving] = useState(defaultValue);
+    const [wisSaving, setWisSaving] = useState(defaultValue);
+    const [chaSaving, setChaSaving] = useState(defaultValue);
+
+
+    const resetCharacter = () => {
+        setCharacterName('');
+        setBackground('');
+        setCharacterClass('');
+        setPlayerName('');
+        setRace('');
+        setAlignment('');
+        // attributes
+        setStrValue(defaultValue);
+        setStrBonus(defaultValue);
+        setDexValue(defaultValue);
+        setDexBonus(defaultValue);
+        setConValue(defaultValue);
+        setConBonus(defaultValue);
+        setIntValue(defaultValue);
+        setIntBonus(defaultValue);
+        setWisValue(defaultValue);
+        setWisBonus(defaultValue);
+        setChaValue(defaultValue);
+        setChaBonus(defaultValue);
+        // skills
+        setAcrobaticsValue(defaultValue);
+        setAnimalHandlingValue(defaultValue);
+        setArcanaValue(defaultValue);
+        setAthleticsValue(defaultValue);
+        setDeceptionValue(defaultValue);
+        setHistoryValue(defaultValue);
+        setInsightValue(defaultValue);
+        setIntimidationValue(defaultValue);
+        setInvestigationValue(defaultValue);
+        setMedicineValue(defaultValue);
+        setNatureValue(defaultValue);
+        setPerceptionValue(defaultValue);
+        setPerformanceValue(defaultValue);
+        setPersuasionValue(defaultValue);
+        setReligionValue(defaultValue);
+        setSleightOfHandValue(defaultValue);
+        setStealthValue(defaultValue);
+        setSurvivalValue(defaultValue);
+        // saving throws
+        setStrSaving(defaultValue)
+        setDexSaving(defaultValue)
+        setConSaving(defaultValue)
+        setIntSaving(defaultValue)
+        setWisSaving(defaultValue)
+        setChaSaving(defaultValue)
+    }
 
     const value = {
         // main details
@@ -88,9 +147,21 @@ export const CharacterProvider = ({ children }) => {
         religionValue, setReligionValue,
         sleightOfHandValue, setSleightOfHandValue,
         stealthValue, setStealthValue,
-        survivalValue, setSurvivalValue
+        survivalValue, setSurvivalValue,
+        // saving throws
+        strSaving, setStrSaving,
+        dexSaving, setDexSaving,
+        conSaving, setConSaving,
+        intSaving, setIntSaving,
+        wisSaving, setWisSaving,
+        chaSaving, setChaSaving,
+            
+
+        // methods
+        resetCharacter,
 
     }
+
 
     return (
         <CharacterContext.Provider value={value}>

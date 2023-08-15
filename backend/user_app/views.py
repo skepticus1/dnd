@@ -54,12 +54,16 @@ class Login(APIView):
         password = request.data.get("password")
         print(username, password)
         user = authenticate(username = username, password=password)
+        print("user id is: ", user.id)
         if user:
             token, created = Token.objects.get_or_create(user = user)
+            print(token.key)
             return Response({
+                "token":token.key,
+                "id":user.id,
                 "username":user.username,
                 "first_name":user.first_name,
-                "last_name":user.last_name
+                "last_name":user.last_name,
              })
         else:
             return Response("INVALID CREDENTIALS", HTTP_404_NOT_FOUND)

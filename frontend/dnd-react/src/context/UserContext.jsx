@@ -6,6 +6,7 @@ const UserContext = createContext()
 export const UserProvider = ({ children }) => {
     //const navigate = useNavigate()
     const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
 
     const backendURL = "http://127.0.0.1:8000/api/" 
 
@@ -16,7 +17,7 @@ export const UserProvider = ({ children }) => {
 
     return (
         <>
-            <UserContext.Provider value={{user, setUser, logout, backendURL}}>
+            <UserContext.Provider value={{user, setUser, logout, backendURL, token, setToken}}>
                 {children}
             </UserContext.Provider>
         </>

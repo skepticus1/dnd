@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { api } from "./utilities";
 import { useUser } from "./context/UserContext"
 import { CharacterProvider } from "./context/CharContext";
+import { CreationProvider } from "./context/CreationContext";
 
 
 export default function App() {
@@ -36,10 +37,12 @@ export default function App() {
 
   return (
     <>
-      <CharacterProvider>
-          <Navbar />
-          <Outlet />
-      </CharacterProvider>
+      <CreationProvider>
+        <CharacterProvider>
+            <Navbar />
+            <Outlet />
+        </CharacterProvider>
+      </CreationProvider>
     </>
   )
 }
