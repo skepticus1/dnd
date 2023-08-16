@@ -1,17 +1,15 @@
 import { useCharacter } from "../context/CharContext";
 
 const CharSheetSavingHitDice = () => {
-
-    // characters attributes and set method.
-    const char = useCharacter()
+    const {charData, setCharData} = useCharacter()
 
     const savingThrowValues = {
-        "Strength" : char.strSaving,
-        "Dexterity" : char.dexSaving,
-        "Constitution" : char.conSaving,
-        "Intelligence" : char.intSaving,
-        "Wisdom" : char.wisSaving,
-        "Charisma" : char.chaSaving,
+        "Strength" : charData.strSaving,
+        "Dexterity" : charData.dexSaving,
+        "Constitution" : charData.conSaving,
+        "Intelligence" : charData.intSaving,
+        "Wisdom" : charData.wisSaving,
+        "Charisma" : charData.chaSaving,
     }
 
     return (

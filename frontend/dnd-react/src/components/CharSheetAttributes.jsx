@@ -1,28 +1,29 @@
 import { useCharacter } from "../context/CharContext";
 
 const CharSheetAttributes = () => {
-    const char = useCharacter()
+    const {charData, setCharData} = useCharacter()
 
     const attributes = [
-        { name: 'STR', value: char.strValue, bonus: char.strBonus, setValue: char.setStrValue, setBonus: char.setStrBonus },
-        { name: 'DEX', value: char.dexValue, bonus: char.dexBonus, setValue: char.setDexValue, setBonus: char.setDexBonus },
-        { name: 'CON', value: char.conValue, bonus: char.conBonus, setValue: char.setConValue, setBonus: char.setConBonus },
-        { name: 'INT', value: char.intValue, bonus: char.intBonus, setValue: char.setIntValue, setBonus: char.setIntBonus },
-        { name: 'WIS', value: char.wisValue, bonus: char.wisBonus, setValue: char.setWisValue, setBonus: char.setWisBonus },
-        { name: 'CHA', value: char.chaValue, bonus: char.chaBonus, setValue: char.setChaValue, setBonus: char.setChaBonus },
+        { name: 'STR', key: 'str' },
+        { name: 'DEX', key: 'dex' },
+        { name: 'CON', key: 'con' },
+        { name: 'INT', key: 'int' },
+        { name: 'WIS', key: 'wis' },
+        { name: 'CHA', key: 'cha' },
     ];
     
 
 
-    const handleAttributeChange = (e, attribute) => {
+    const handleAttributeChange = (e, attributeKey) => {
+        console.log(attributeKey)
         const newValue = e.target.value;
-        attribute.setValue(newValue)
-
-        const bonus = Math.floor((newValue - 10) / 2 )
-        attribute.setBonus(bonus)
+        const newBonus = Math.floor((newValue - 10) / 2 )
+        setCharData(prevData => ({
+            ...prevData,
+            [attributeKey + "Value"]: newValue,
+            [attributeKey + "Bonus"]: newBonus
+        }))
     }
-
-
 
     return (
         <>
@@ -37,14 +38,14 @@ const CharSheetAttributes = () => {
                                         type="number" 
                                         className="form-control text-center" 
                                         placeholder={attribute.name} 
-                                        value={attribute.value}
-                                        onChange={(e) => handleAttributeChange(e, attribute)} 
+                                        value={charData[attribute.key + "Value"] || 0}
+                                        onChange={(e) => handleAttributeChange(e, attribute.key)} 
                                     />
                                 </div>
                                 <div className="d-flex">
                                     <label className='text-center m-2'>Bonus</label>
                                     <div className='form-control text-center p-1'>
-                                        {attribute.bonus}
+                                        {charData[attribute.key + "Bonus"] || 0}
                                     </div>
                                 </div>
                             </div>

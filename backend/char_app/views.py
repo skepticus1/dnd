@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -24,12 +24,17 @@ class CreateCharacter(APIView):
             print('\ncharacter start\n')
             character = Character.objects.create(
                 user=user,
-                userName=data.get('playerName', f"{user}"),
-                charName=data.get('characterName'),
-                background=data.get('background'),
-                char_class=data.get('characterClass'),
+                userName=data.get('userName', f"{user}"),
+                charName=data.get('charName'),
                 race=data.get('race'),
+                speed=data.get('speed'),
+                size=data.get('size'),
+                age=data.get('age'),
+                charClass=data.get('charClass'),
+                level=data.get('level'),
+                background=data.get('background'),
                 alignment=data.get('alignment'),
+                # level=data.get('level'), # todo: need to add level to the creatcharacterpage.jsx and edit pages.
                 #attributes
                 strValue=data.get('strValue'),
                 strBonus=data.get('strBonus'),
@@ -76,3 +81,22 @@ class Characters(APIView):
         print(characters)
         serializer = CharacterSerializer(characters, many=True)
         return Response(serializer.data)
+    
+class CharacterData(APIView):
+
+    # retreive character data for displaying on edit character page.
+    def get(self, request, character_id):
+        character = get_object_or_404(Character, pk=character_id)
+        serializer = CharacterSerializer(character)
+        return Response(serializer.data)
+    
+    # save character edits.
+    def put(self, request, character_id):
+        character = get_object_or_404(Character, pk=character_id)
+        serializer = CharacterSerializer(character, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer.data)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

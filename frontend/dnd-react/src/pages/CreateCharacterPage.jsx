@@ -13,51 +13,12 @@ const CreateCharacterPage = () => {
 
 
     const handleSubmit = async () => {
+        
         const charData = {
-            //user
             id: userContext.user.id,
-            // main
-            characterName: charContext.characterName,
-            background: charContext.background,
-            characterClass: charContext.characterClass,
-            // playerName: charContext.playerName,
-            race: charContext.race,
-            alignment: charContext.alignment,
-            // attributes
-            strValue: charContext.strValue,
-            strBonus: charContext.strBonus,
-            dexValue: charContext.dexValue,
-            dexBonus: charContext.dexBonus,
-            conValue: charContext.conValue,
-            conBonus: charContext.conBonus,
-            intValue: charContext.intValue,
-            intBonus: charContext.intBonus,
-            wisValue: charContext.wisValue,
-            wisBonus: charContext.wisBonus,
-            chaValue: charContext.chaValue,
-            chaBonus: charContext.chaBonus,
-            // skills
-            skills: {
-                acrobaticsValue: charContext.acrobaticsValue,
-                animalHandlingValue: charContext.animalHandlingValue,
-                arcanaValue: charContext.arcanaValue,
-                athleticsValue: charContext.athleticsValue,
-                deceptionValue: charContext.deceptionValue,
-                historyValue: charContext.historyValue,
-                insightValue: charContext.insightValue,
-                intimidationValue: charContext.intimidationValue,
-                investigationValue: charContext.investigationValue,
-                medicineValue: charContext.medicineValue,
-                natureValue: charContext.natureValue,
-                perceptionValue: charContext.perceptionValue,
-                performanceValue: charContext.performanceValue,
-                persuasionValue: charContext.persuasionValue,
-                religionValue: charContext.religionValue,
-                sleightOfHandValue: charContext.sleightOfHandValue,
-                stealthValue: charContext.stealthValue,
-                survivalValue: charContext.survivalValue
-            }
+            ...charContext.charData
         }
+
 
         try {
             const response = await axios.post(`${userContext.backendURL}chars/create/`, charData)

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useUser } from '../context/UserContext.jsx'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
+import { useCharacter } from '../context/CharContext.jsx'
 
 export default function HomePage() {
     const navigate = useNavigate()
     const userContext = useUser()
+    const charContext = useCharacter()
     const [characters, setCharacters] = useState()
 
     // if there's no use navigate to login
@@ -46,6 +48,7 @@ export default function HomePage() {
 
     // create character button logic
     const handleCreateCharacter = () => {
+        charContext.resetCharacter()
         navigate('/createCharacter')
     }
 
@@ -62,15 +65,17 @@ export default function HomePage() {
                     <div className="row">
                         {characters && characters.map(character => (
                             <div className="col-md-4 mb-3" key={character.id}>
-                                <div className="card">
-                                    <div className="card-header">
-                                        {character.charName}
+                                <Link to={`/editCharacter/${character.id}`}>
+                                    <div className="card">
+                                        <div className="card-header">
+                                            {character.charName}
+                                        </div>
+                                        <div className="card-body">
+                                            <h5 className="card-title">{character.userName}</h5>
+                                            <p className="card-text">{character.char_class}</p>
+                                        </div>
                                     </div>
-                                    <div className="card-body">
-                                        <h5 className="card-title">{character.userName}</h5>
-                                        <p className="card-text">{character.className}</p>
-                                    </div>
-                                </div>
+                                </Link>
                             </div>
                         ))}
                     </div>

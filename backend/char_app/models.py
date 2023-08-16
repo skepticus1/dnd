@@ -11,7 +11,7 @@ class Character(models.Model):
     speed = models.IntegerField(null=True, blank=True)
     size = models.CharField(null=True, blank=True, max_length=100)
     age = models.CharField(null=True, blank=True, max_length=100)
-    char_class = models.CharField(null=True, blank=True)
+    charClass = models.CharField(null=True, blank=True)
     level = models.IntegerField(null=True, blank=True)
     alignment = models.CharField(null=True, blank=True)
     background = models.CharField(null=True, blank=True)
