@@ -7,14 +7,21 @@ class Character(models.Model):
 
     userName = models.CharField(null=True, blank=True, max_length=100)
     charName = models.CharField(null=True, blank=True, max_length=100)
+    charClass = models.CharField(null=True, blank=True)
     race = models.CharField(null=True, blank=True, max_length=100)
     speed = models.IntegerField(null=True, blank=True)
     size = models.CharField(null=True, blank=True, max_length=100)
-    age = models.CharField(null=True, blank=True, max_length=100)
-    charClass = models.CharField(null=True, blank=True)
     level = models.IntegerField(null=True, blank=True)
     alignment = models.CharField(null=True, blank=True)
     background = models.CharField(null=True, blank=True)
+    #appearance
+    age = models.CharField(null=True, blank=True, max_length=100)
+    height = models.CharField(null=True, blank=True, max_length=100)
+    weight = models.CharField(null=True, blank=True, max_length=100)
+    eyes = models.CharField(null=True, blank=True, max_length=100)
+    skin = models.CharField(null=True, blank=True, max_length=100)
+    hair = models.CharField(null=True, blank=True, max_length=100)
+
 
     #attributes
     strValue = models.IntegerField(null=True, blank=True)
@@ -30,7 +37,26 @@ class Character(models.Model):
     chaValue = models.IntegerField(null=True, blank=True)
     chaBonus = models.IntegerField(null=True, blank=True)
 
+    #savingThrows
+    strSaving = models.IntegerField(null=True, blank=True)
+    dexSaving = models.IntegerField(null=True, blank=True)
+    conSaving = models.IntegerField(null=True, blank=True)
+    intSaving = models.IntegerField(null=True, blank=True)
+    wisSaving = models.IntegerField(null=True, blank=True)
+    chaSaving = models.IntegerField(null=True, blank=True)
+    
+    #hitdice,hp,death throws
+    currentHitPoints = models.IntegerField(null=True, blank=True)
+    tempHitPoints = models.IntegerField(null=True, blank=True)
+    hitDice = models.IntegerField(null=True, blank=True)
+    deathSuccess = models.IntegerField(null=True, blank=True)
+    deathFailure = models.IntegerField(null=True, blank=True)
 
+    personalityTraits = models.CharField(null=True, blank=True)
+    ideals = models.CharField(null=True, blank=True)
+    bonds = models.CharField(null=True, blank=True)
+    flaws = models.CharField(null=True, blank=True)
+    
    
 class Trait(models.Model):
     name = models.CharField(max_length=100)
@@ -56,3 +82,7 @@ class Spell(models.Model):
 class Feature(models.Model):
     name = models.CharField(max_length=100)
     character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name="character_features")
+    
+class Equipment(models.Model):
+    name = models.CharField(max_length=100)
+    character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name="character_equipment")

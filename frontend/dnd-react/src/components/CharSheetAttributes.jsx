@@ -1,7 +1,9 @@
 import { useCharacter } from "../context/CharContext";
+import { useCreation } from "../context/CreationContext";
 
 const CharSheetAttributes = () => {
     const {charData, setCharData} = useCharacter()
+    const {races, raceData} = useCreation()
 
     const attributes = [
         { name: 'STR', key: 'str' },
@@ -11,13 +13,19 @@ const CharSheetAttributes = () => {
         { name: 'WIS', key: 'wis' },
         { name: 'CHA', key: 'cha' },
     ];
-    
 
+    const getRaceAttributeBonus = (attributeKey) => {
+        if (!raceData) return 0;
+        const bonusData = raceData.ability_bonuses.find(bonus => bonus.ability_score.index === attributeKey);
+        return bonusData ? bonusData.bonus : 0;
+    }
 
     const handleAttributeChange = (e, attributeKey) => {
-        console.log(attributeKey)
+        // console.log(attributeKey)
         const newValue = e.target.value;
-        const newBonus = Math.floor((newValue - 10) / 2 )
+        const raceBonus = getRaceAttributeBonus(attributeKey)
+        const totalValue = parseInt(newValue) + raceBonus
+        const newBonus = Math.floor((totalValue - 10) / 2 )
         setCharData(prevData => ({
             ...prevData,
             [attributeKey + "Value"]: newValue,
@@ -41,6 +49,7 @@ const CharSheetAttributes = () => {
                                         value={charData[attribute.key + "Value"] || 0}
                                         onChange={(e) => handleAttributeChange(e, attribute.key)} 
                                     />
+                                    {` + ${getRaceAttributeBonus(attribute.key)}` || 0 }
                                 </div>
                                 <div className="d-flex">
                                     <label className='text-center m-2'>Bonus</label>

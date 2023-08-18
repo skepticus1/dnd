@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "editCharacter/:characterId",
-                element: <EditCharacterPage />
+                element: <CreateCharacterPage />
             },
         ]
     }
