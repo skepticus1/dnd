@@ -8,16 +8,12 @@ from .models import Character, Skill, Language, Trait, Feature, Proficiency, Spe
 from user_app.models import User
 from .serializers import CharacterSerializer
 
-class CreateCharacter(APIView):
-
-    def post(self, request):
-        data = request.data
-        print(data)
-
+def handle_character_create(character, data):
+    
         try:
-            user = User.objects.get(id=data.get('id'))
+            user = User.objects.get(id=data.get('user_id'))
         except User.DoesNotExist:
-            return Response({"error":"User not found"}, status=status.HTTP_404_NOT_FOUND)
+            raise Exception('user not found')
 
         try:
             print('\ncharacter start')
@@ -60,6 +56,7 @@ class CreateCharacter(APIView):
                 wisSaving=data.get('wisSaving'),
                 chaSaving=data.get('chaSaving'),
                 # death, hp, hitdice
+                armorClass=data.get('armorClass'),
                 currentHitPoints=data.get('currentHitPoints'),
                 tempHitPoints=data.get('tempHitPoints'),
                 hitDice=data.get('hitDice'),
@@ -70,13 +67,12 @@ class CreateCharacter(APIView):
                 ideals=data.get('ideals'),
                 bonds=data.get('bonds'),
                 flaws=data.get('flaws'),
-                
-                
             )
             print('\ncharacter done')
 
         except Exception as e:
-            return Response({"error character": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            print('character data error', {e})
+            return character
 
         # skills
         try:
@@ -93,8 +89,8 @@ class CreateCharacter(APIView):
             print('skills done')
 
         except Exception as e:
-            print("error", e)
-            return Response({"error skills": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            print("error at skills", e)
+            return character
         
         # languages
         try:
@@ -109,7 +105,7 @@ class CreateCharacter(APIView):
             print('languages done')
         except Exception as e:
             print('error with languages', e)
-            return Response({'error languages': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return character
 
         # traits
         try:
@@ -124,7 +120,7 @@ class CreateCharacter(APIView):
             print('traits done')
         except Exception as e:
             print('error with traits', e)
-            return Response({'error traits': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return character
 
         # features
         try:
@@ -139,7 +135,7 @@ class CreateCharacter(APIView):
             print('feature done')
         except Exception as e:
             print('error with features', e)
-            return Response({'error features': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return character
 
         # proficiencies
         try:
@@ -154,7 +150,7 @@ class CreateCharacter(APIView):
             print('proficiencies done')
         except Exception as e:
             print('error with proficiencies', e)
-            return Response({'error proficiencies': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return character
 
         # spells
         try:
@@ -169,7 +165,7 @@ class CreateCharacter(APIView):
             print('spells done')
         except Exception as e:
             print('error with spells', e)
-            return Response({'error spells': str(e)}, status=status.HTTP_400_BAD_REQUEST)   
+            return character 
         
         # equipment
         try:
@@ -184,8 +180,208 @@ class CreateCharacter(APIView):
             print('sequipment done')
         except Exception as e:
             print('error with equipment', e)
-            return Response({'error equipment': str(e)}, status=status.HTTP_400_BAD_REQUEST)   
+            return character
         
+        return character
+
+def handle_character_update(character, data):
+    
+        try:
+            user = User.objects.get(id=data.get('user_id'))
+        except User.DoesNotExist:
+            raise Exception('user not found')
+
+        try:
+            print('\ncharacter start')
+            print('data level', data.get('level'))
+            print('level type', int(data.get('level')))
+             
+            user=user,
+            character.userName=data.get('userName', f"{user}")
+            character.charName=data.get('charName')
+            character.race=data.get('race')
+            character.speed=data.get('speed')
+            character.size=data.get('size')
+            character.charClass=data.get('charClass')
+            character.level=int(data.get('level'))
+            character.background=data.get('background')
+            character.alignment=data.get('alignment')
+            #appearance
+            character.age=data.get('age')
+            character.height=data.get('height')
+            character.weight=data.get('weight')
+            character.eyes=data.get('eyes')
+            character.skin=data.get('skin')
+            character.hair=data.get('hair')
+            #attributes
+            character.strValue=data.get('strValue')
+            character.strBonus=data.get('strBonus')
+            character.dexValue=data.get('dexValue')
+            character.dexBonus=data.get('dexBonus')
+            character.conValue=data.get('conValue')
+            character.conBonus=data.get('conBonus')
+            character.intValue=data.get('intValue')
+            character.intBonus=data.get('intBonus')
+            character.wisValue=data.get('wisValue')
+            character.wisBonus=data.get('wisBonus')
+            character.chaValue=data.get('chaValue')
+            character.chaBonus=data.get('chaBonus')
+            # saving throws
+            character.strSaving=data.get('strSaving')
+            character.dexSaving=data.get('dexSaving')
+            character.conSaving=data.get('conSaving')
+            character.intSaving=data.get('intSaving')
+            character.wisSaving=data.get('wisSaving')
+            character.chaSaving=data.get('chaSaving')
+            # death, hp, hitdice
+            character.initiative=data.get('initiative')
+            character.armorClass=data.get('armorClass')
+            character.currentHitPoints=data.get('currentHitPoints')
+            character.tempHitPoints=data.get('tempHitPoints')
+            character.hitDice=data.get('hitDice')
+            character.deathSuccess=data.get('deathSuccess')
+            character.deathFailure=data.get('deathFailure')
+            # bonds flaws ideals personality
+            character.personalityTraits=data.get('personalityTraits')
+            character.ideals=data.get('ideals')
+            character.bonds=data.get('bonds')
+            character.flaws=data.get('flaws')
+            
+            
+            
+            print('\ncharacter done')
+
+        except Exception as e:
+            print('character data error', {e})
+            return character
+
+        # skills
+        try:
+            Skill.objects.filter(character=character).delete()
+            print('\nskills')
+            character_skills = data.get('character_skills', {})
+            print(character_skills)
+            for skill_name, skill_value in character_skills.items():
+                print(skill_name, skill_value)
+                Skill.objects.create(
+                    name=skill_name,
+                    value=skill_value,
+                    character=character
+                )
+            print('skills done')
+
+        except Exception as e:
+            print("error at skills", e)
+            return character
+        
+        # languages
+        try:
+            Language.objects.filter(character=character).delete()
+            print('\nlanguages')
+            character_languages = data.get('character_languages', [])
+            for language_name in character_languages:
+                print(language_name)
+                Language.objects.create(
+                    name=language_name,
+                    character=character
+                )
+            print('languages done')
+        except Exception as e:
+            print('error with languages', e)
+            return character
+
+        # traits
+        try:
+            Trait.objects.filter(character=character).delete()
+            print('\ntraits')
+            character_traits = data.get('character_traits', [])
+            for trait_name in character_traits:
+                print(trait_name)
+                Trait.objects.create(
+                    name=trait_name,
+                    character=character
+                )
+            print('traits done')
+        except Exception as e:
+            print('error with traits', e)
+            return character
+
+        # features
+        try:
+            Feature.objects.filter(character=character).delete()
+            print('\nfeatures')
+            character_features = data.get('character_features', [])
+            print('!!!!!\n', character_features)
+            for feature_name in character_features:
+                print(feature_name)
+                Feature.objects.create(
+                    name=feature_name,
+                    character=character
+                )
+            print('feature done')
+        except Exception as e:
+            print('error with features', e)
+            return character
+
+        # proficiencies
+        try:
+            Proficiency.objects.filter(character=character).delete()
+            print('\nproficiencies')
+            character_proficiencies = data.get('character_proficiencies', [])
+            for proficiency_name in character_proficiencies:
+                print(proficiency_name)
+                Proficiency.objects.create(
+                    name=proficiency_name,
+                    character=character
+                )
+            print('proficiencies done')
+        except Exception as e:
+            print('error with proficiencies', e)
+            return character
+
+        # spells
+        try:
+            Spell.objects.filter(character=character).delete()
+            print('\nspells')
+            character_spells = data.get('character_spells', [])
+            for spell_name in character_spells:
+                print(spell_name)
+                Spell.objects.create(
+                    name=spell_name,
+                    character=character
+                )
+            print('spells done')
+        except Exception as e:
+            print('error with spells', e)
+            return character 
+        
+        # equipment
+        try:
+            Equipment.objects.filter(character=character).delete()
+            print('\nequipment')
+            character_equipment = data.get('character_equipment', [])
+            for item_name in character_equipment:
+                print(item_name)
+                Equipment.objects.create(
+                    name=item_name,
+                    character=character
+                )
+            print('sequipment done')
+        except Exception as e:
+            print('error with equipment', e)
+            return character
+        
+        # character.full_clean() # will check new data against validators
+        character.save()        # saves data to database
+        return character
+
+class CreateCharacter(APIView):
+
+    def post(self, request):
+        print('POST DATA:\n', request.data)
+        data = request.data
+        character = handle_character_create(None, data)
+        print('post character.data', character)
         return Response({"id": character.id}, status=status.HTTP_201_CREATED)
 
 class Characters(APIView):
@@ -202,24 +398,26 @@ class CharacterData(APIView):
     # retreive character data for displaying on edit character page.
     def get(self, request, character_id):
         
-        print('\ncharacterdata api')
         # character = get_object_or_404(Character, pk=character_id)
         character = Character.objects.get(pk=character_id)
         serializer = CharacterSerializer(character)
-        print('\n', serializer.data)
         return Response(serializer.data)
     
     # save character edits.
     def put(self, request, character_id):
-        print('put request, reqeust.data\n\n\n', request.data)
+        print('PUT DATA:\n\n', request.data)
+        data = request.data
         character = get_object_or_404(Character, pk=character_id)
-        serializer = CharacterSerializer(character, data=request.data)
+        print(character)
 
-        if serializer.is_valid():
-            serializer.save()
-            print('put request, serialized data\n\n\n', serializer.data)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            updated_character = handle_character_update(character, data)
+            # serializer = CharacterSerializer(updated_character)
+            print('put request, update_character_data\n\n\n', updated_character)
+            return Response({"id": updated_character.id}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(f"Error: {e}")
+            return Response('something went wrong', status=status.HTTP_400_BAD_REQUEST)
     
     #delete character
     def delete(self, request, character_id):

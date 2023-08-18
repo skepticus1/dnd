@@ -23,11 +23,13 @@ const CharSheetSavingHitDice = () => {
     }
     
     const handleStatChange = (event, stat) => {
+        console.log(`setting ${stat} to ${event.target.value}`)
         const newValue = event.target.value
         setCharData(prev => ({
             ...prev,
             [stat]: newValue
         }))
+        console.log(charData)
     }
 
 
@@ -90,9 +92,12 @@ const CharSheetSavingHitDice = () => {
                         <div className='m-1'>
                             <div>
                                 speed
-                            </div>
-                            <div>
-                                {charData.speed}
+                                <input 
+                                    type="number" 
+                                    className="form-control"
+                                    value={charData.speed || 0}
+                                    onChange={(e) => handleStatChange(e, 'speed')}
+                                />
                             </div>
                         </div>
                     </div>

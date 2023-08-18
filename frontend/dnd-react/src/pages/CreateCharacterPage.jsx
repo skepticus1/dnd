@@ -30,13 +30,12 @@ const CreateCharacterPage = () => {
 
     const handleSave = async () => {
         const tempCharData = {
-            id: userContext.user.id,
+            user_id: userContext.user.id,
             ...charData
         }
-        const url = `${userContext.backendURL}chars/edit/${characterId}/`
         console.log('chardata handleSave: ', tempCharData)
         try{
-            const response = await axios.put(url, tempCharData);
+            const response = await axios.put(`${userContext.backendURL}chars/edit/${characterId}/`, tempCharData);
 
             if(response.status === 200) {
                 console.log("Character updated: ", response.data)
@@ -66,9 +65,10 @@ const CreateCharacterPage = () => {
 
     const handleSubmit = async () => {
         const tempCharData = {
-            id: userContext.user.id,
+            user_id: userContext.user.id,
             ...charData
         }
+        console.log('chardata handlesubmnit: ', tempCharData)
         try {
             const response = await axios.post(`${userContext.backendURL}chars/create/`, tempCharData)
             
@@ -85,6 +85,7 @@ const CreateCharacterPage = () => {
         }
     }
 
+    console.log(charData)
     return (
         <div className="container mt-5">
             <div className=''>

@@ -58,8 +58,6 @@ const CharSheetHeader = () => {
             axios.get(`https://www.dnd5eapi.co/api/races/${selectedRace}`)
                 .then(response => {
                     const raceDetails = response.data
-                    updateCharData('speed', raceDetails.speed)
-                    updateCharData('size', raceDetails.size)
                     setRaceData(raceDetails)
                 })
                 .catch(error => {

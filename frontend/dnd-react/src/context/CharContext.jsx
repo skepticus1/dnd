@@ -58,6 +58,8 @@ export const CharacterProvider = ({ children }) => {
         currentHitPoints: num,
         tempHitPoints: num,
         hitDice: num,
+        deathSuccess: num,
+        deathFailure: num,
 
         // ideals bonds flaws personality
         personalityTraits: str,
@@ -208,6 +210,8 @@ export const CharacterProvider = ({ children }) => {
 
     const updateCharData = (key, value) => {
         console.log(`setting ${key} to ${value}`)
+        console.log(typeof(value))
+        console.log(typeof(key))
         setCharData(prev => {
             const updatedData = { ...prev, [key]: value }
             console.log('updateCharData: updatedData:', updatedData)
@@ -246,10 +250,15 @@ export const CharacterProvider = ({ children }) => {
     }
     
     const addFeature = (feature) => {
-        console.log(feature)
+        console.log('addFeature : ', feature)
         setCharData(prev => {
             if(!prev.character_features.includes(feature)) {
-                return {...prev, character_features: [...prev.character_features, feature]}
+                const updatedFeatures = {
+                    ...prev,
+                    character_features: [...prev.character_features, feature]
+                }
+                console.log('updatedFeatures: ', updatedFeatures)
+                return updatedFeatures
             }
             return prev
         })

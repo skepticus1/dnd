@@ -9,7 +9,7 @@ class Character(models.Model):
     charName = models.CharField(null=True, blank=True, max_length=100)
     charClass = models.CharField(null=True, blank=True)
     race = models.CharField(null=True, blank=True, max_length=100)
-    speed = models.IntegerField(null=True, blank=True)
+    speed = models.CharField(null=True, blank=True, max_length=100)
     size = models.CharField(null=True, blank=True, max_length=100)
     level = models.IntegerField(null=True, blank=True)
     alignment = models.CharField(null=True, blank=True)
@@ -46,6 +46,8 @@ class Character(models.Model):
     chaSaving = models.IntegerField(null=True, blank=True)
     
     #hitdice,hp,death throws
+    initiative = models.IntegerField(null=True, blank=True)
+    armorClass = models.IntegerField(null=True, blank=True)
     currentHitPoints = models.IntegerField(null=True, blank=True)
     tempHitPoints = models.IntegerField(null=True, blank=True)
     hitDice = models.IntegerField(null=True, blank=True)
