@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CreateCharacter, Characters, CharacterData
+from .views import CreateCharacter, Characters, CharacterData, SDModelsView, GenerateImage
 
 
 urlpatterns = [
@@ -7,4 +7,6 @@ urlpatterns = [
     path("characters/", Characters.as_view(), name='characters'),
     path("edit/<int:character_id>/", CharacterData.as_view(), name='edit'),
     path("delete/<int:character_id>/", CharacterData.as_view(), name='delete'),
+    path("sd_models/", SDModelsView.as_view(), name='sd_models'),
+    path("generate_image/", GenerateImage.as_view(), name='generate_image'),
 ]

@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Character, Skill, Language, Trait, Feature, Proficiency, Spell, Equipment
 from user_app.models import User
 from .serializers import CharacterSerializer
+import requests
 
 def handle_character_create(character, data):
     
@@ -425,3 +426,28 @@ class CharacterData(APIView):
 
         character.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class SDModelsView(APIView):
+    def get(self, request):
+        api_url = 'http://127.0.0.1:7860/sdapi/v1/sd-models'
+
+        try:
+            response = requests.get('http://172.24.160.1:7860/sdapi/v1/sd-models')
+            if response.status_code == 200:
+                return Response(response.json(), status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "failed to fetch sd models"}, status=status.HTTP_400_BAD_REQUEST)
+        except requests.RequestException as e:
+            return Response({"error": f"Network error while fetching SD models: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class GenerateImage(APIView):
+    def post(self, request):
+        prompt_data = request.data
+
+        response = requests.post('http://172.24.160.1:7860/sdapi/v1/txt2img', json=prompt_data)
+
+        if response.status_code == 200:
+            response
+            return Response(response.json(), status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "failed to generate image"}, status=status.HTTP_400_BAD_REQUEST)

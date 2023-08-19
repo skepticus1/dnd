@@ -2,6 +2,7 @@ import axios from "axios";
 import { useCharacter } from "../context/CharContext";
 import { useCreation } from "../context/CreationContext";
 import { useEffect } from "react";
+import CharSheetImage from "./CharSheetImage";
 
 
 const CharSheetHeader = () => {
@@ -110,6 +111,7 @@ const CharSheetHeader = () => {
             <div className="row">
                 <div className="col-md-4">
                     img
+                    <CharSheetImage />
                 </div>
                 <div className="col-md-4">
                     <label htmlFor="age" className="small text-center d-block">Age</label>
