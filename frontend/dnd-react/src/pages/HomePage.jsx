@@ -17,6 +17,11 @@ export default function HomePage() {
         }
     }, [userContext.user, navigate])
 
+    // user is on home page clear charData
+    useEffect(() => {
+        charContext.resetCharacter()
+    }, [])
+
     // get users character data
     useEffect(() => {
         if(!userContext.user){
@@ -55,6 +60,7 @@ export default function HomePage() {
     return (
         <>
             <div className='img_background'>
+                <div style={{height: "75px"}}></div>
                 <div className='d-flex justify-content-center'>
                     <button className='btn btn-dark m-4 p-3' onClick={handleCreateCharacter}>
                         Create Character
@@ -66,13 +72,22 @@ export default function HomePage() {
                         {characters && characters.map(character => (
                             <div className="col-md-4 mb-3" key={character.id}>
                                 <Link to={`/editCharacter/${character.id}`}>
-                                    <div className="card">
-                                        <div className="card-header">
+                                    <div className="card bg-secondary text-white">
+                                        <div className="card-header bg-dark">
                                             {character.charName}
                                         </div>
+                                        <img
+                                            src={`data:image/png;base64,${character.image_data}`}
+                                            alt="Character Portrait"
+                                            className='card-img-top'
+                                            style={{maxHeight: "200px", objectFit: "contain"}}
+                                        />
                                         <div className="card-body">
-                                            <h5 className="card-title">{character.userName}</h5>
-                                            <p className="card-text">{character.char_class}</p>
+                                            <h5 className='card-title bg-dark text-center'>{character.charName}</h5>
+                                            <p className='card-text'>
+                                                <strong>Class:</strong> {character.charClass}<br />
+                                                <strong>Level:</strong> {character.level}<br />
+                                            </p>
                                         </div>
                                     </div>
                                 </Link>

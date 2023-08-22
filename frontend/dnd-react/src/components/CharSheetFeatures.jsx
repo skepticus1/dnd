@@ -82,117 +82,141 @@ const CharSheetFeatures = () => {
 
     return (
         <>
-            <div className="border d-flex">
+            <div className="d-flex">
                 <div className="col-md-4">
-                    <div className="">
-                        Personality Traits
-                    </div>
-                    <input
-                        type="text"
+                    <strong>Personality Traits</strong>
+                    <textarea 
+                        rows="2"
+                        maxLength="100"
                         className="form-control"
-                        placeholder="Personality Traits"
-                        value={charData.personalityTraits || 'Personality Traits...'}
+                        placeholder="Personality Traits..."
+                        value={charData.personalityTraits || ''}
                         onChange={(e) => handleTextInputChange(e, 'personalityTraits')}
                     />
-                    <div>
-                        Ideals
-                    </div>
-                    <input
-                        type="text"
+                    <strong>Ideals</strong>
+                    <textarea
+                        rows="2"
+                        maxLength="100"
                         className="form-control"
-                        placeholder="Ideals"
-                        value={charData.ideals || 'Ideals...'}
+                        placeholder="Ideals..."
+                        value={charData.ideals || ''}
                         onChange={(e) => handleTextInputChange(e, 'ideals')}
                     />
-                    <div>
-                        Bonds
-                    </div>
-                    <input
-                        type="text"
+                    <strong>Bonds</strong>
+                    <textarea
+                        rows="2"
+                        maxLength="100"
                         className="form-control"
                         placeholder="Bonds"
-                        value={charData.bonds || 'Bonds...'}
+                        value={charData.bonds || ''}
                         onChange={(e) => handleTextInputChange(e, 'bonds')}
                     />
-                    <div>
-                        Flaws
-                    </div>
-                    <input
-                        type="text"
+                    <strong>Flaws</strong>
+                    <textarea
+                        rows="2"
+                        maxLength="100"
                         className="form-control"
                         placeholder="Flaws"
-                        value={charData.flaws || 'Flaws...'}
+                        value={charData.flaws || ''}
                         onChange={(e) => handleTextInputChange(e, 'flaws')}
                     />
                 </div>
                 <div className="col-md-4">
-                    <div>
-                        Languages
-                        <select value={currentLanguage} onChange={(e) => setCurrentLanguage(e.target.value)}>
-                            {availableLanguages.map(lang =>
-                                <option key={lang.index} value={lang.name}>{lang.name}</option>
-                            )}
-                        </select>
-                        <button onClick={() => addLanguage(currentLanguage)}>+</button>
+                    <strong>Languages</strong>
+                    <div className="row mb-3">
+                        <div className="col-8">
+                            <select 
+                                className="form-control"
+                                value={currentLanguage} 
+                                onChange={(e) => setCurrentLanguage(e.target.value)}>
+                                {availableLanguages.map(lang =>
+                                    <option key={lang.index} value={lang.name}>{lang.name}</option>
+                                )}
+                            </select>
+                        </div>
+                        <div className="col-4">
+                            <button className='btn btn-dark btn-block' onClick={() => addLanguage(currentLanguage)}>+</button>
+                        </div>
                     </div>
-                    <ul>
+                    <ul className="list-group">
                         {charData.character_languages && charData.character_languages.length > 0 && charData.character_languages.map(lang => (
-                            <li key={lang}>
+                            <li key={lang} className="list-group-item d-flex justify-content-between align-items-center">
                                 {lang}
-                                <button onClick={() => removeLanguage(lang)}>-</button>
+                                <button className='btn btn-danger btn-sm' onClick={() => removeLanguage(lang)}>-</button>
                             </li>
                         ))}
                     </ul>
-                    <div>
-                        Proficiencies
-                        <select value={currentProficiency} onChange={(e) => setCurrentProficiency(e.target.value)}>
-                            {availableProficiencies.map(prof =>
-                                <option key={prof.index} value={prof.name}>{prof.name}</option>
-                            )}
-                        </select>
-                        <button onClick={() => addProficiency(currentProficiency)}>+</button>
+                    <strong>Proficiencies</strong>
+                    <div className="row mb-3">
+                        <div className="col-8">
+                            <select 
+                                className="form-control"
+                                value={currentProficiency} 
+                                onChange={(e) => setCurrentProficiency(e.target.value)}>
+                                {availableProficiencies.map(prof =>
+                                    <option key={prof.index} value={prof.name}>{prof.name}</option>
+                                )}
+                            </select>
+                        </div>
+                        <div className="col-4">
+                            <button className="btn btn-dark btn-block" onClick={() => addProficiency(currentProficiency)}>+</button>
+                        </div>
                     </div>
-                    <ul>
+                    <ul className="list-group">
                         {charData.character_proficiencies && charData.character_proficiencies.length > 0 && charData.character_proficiencies.map(prof => (
-                            <li key={prof}>
+                            <li key={prof} className="list-group-item d-flex justify-content-between align-items-center">
                                 {prof}
-                                <button onClick={() => removeProficiency(prof)}>-</button>
+                                <button className="btn btn-danger btn-sm" onClick={() => removeProficiency(prof)}>-</button>
                             </li>
                         ))}
                     </ul>
                 </div>
                 <div className="col-md-4">
-                    <div>
-                        Features
-                        <select value={currentFeature} onChange={(e) => setCurrentFeature(e.target.value)}>
-                            {availableFeatures.map(f =>
-                                <option key={f.index} value={f.name}>{f.name}</option>
-                            )}
-                        </select>
-                        <button onClick={() => addFeature(currentFeature)}>+</button>
+                    <strong>Features</strong>
+                    <div className="row mb-3">
+                        <div className="col-8">
+                            <select 
+                                className="form-control"
+                                value={currentFeature} 
+                                onChange={(e) => setCurrentFeature(e.target.value)}>
+                                {availableFeatures.map(f =>
+                                    <option key={f.index} value={f.name}>{f.name}</option>
+                                )}
+                            </select>
+                        </div>
+                        <div className="col-4">
+                            <button className="btn btn-dark btn-block" onClick={() => addFeature(currentFeature)}>+</button>
+                        </div>
                     </div>
-                    <ul>
+                    <ul className="list-group">
                         {charData.character_features && charData.character_features.length > 0 && charData.character_features.map(f => (
-                            <li key={f}>
+                            <li key={f} className="list-group-item d-flex justify-content-between align-items-center">
                                 {f}
-                                <button onClick={() => removeFeature(f)}>-</button>
+                                <button className="btn btn-danger btn-sm" onClick={() => removeFeature(f)}>-</button>
                             </li>
                         ))}
                     </ul>
-                    <div>
-                        Traits
-                        <select value={currentTrait} onChange={(e) => setCurrentTrait(e.target.value)}>
-                            {availableTraits.map(t =>
-                                <option key={t.index} value={t.name}>{t.name}</option>
-                            )}
-                        </select>
-                        <button onClick={() => addTrait(currentTrait)}>+</button>
+                    <strong>Traits</strong>
+                    <div className="row mb-3">
+                        <div className="col-8">
+                            <select 
+                                className="form-control"
+                                value={currentTrait} 
+                                onChange={(e) => setCurrentTrait(e.target.value)}>
+                                {availableTraits.map(t =>
+                                    <option key={t.index} value={t.name}>{t.name}</option>
+                                )}
+                            </select>
+                        </div>
+                        <div className="col-4">
+                            <button className="btn btn-dark btn-block" onClick={() => addTrait(currentTrait)}>+</button>
+                        </div>
                     </div>
-                    <ul>
+                    <ul className="list-group">
                         {charData.character_traits && charData.character_traits.length > 0 && charData.character_traits.map(t => (
-                            <li key={t}>
+                            <li key={t} className="list-group-item d-flex justify-content-between align-items-center">
                                 {t}
-                                <button onClick={() => removeTrait(t)}>-</button>
+                                <button className="btn btn-danger btn-sm" onClick={() => removeTrait(t)}>-</button>
                             </li>
                         ))}
                     </ul>

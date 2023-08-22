@@ -21,6 +21,8 @@ class Character(models.Model):
     eyes = models.CharField(null=True, blank=True, max_length=100)
     skin = models.CharField(null=True, blank=True, max_length=100)
     hair = models.CharField(null=True, blank=True, max_length=100)
+    image_data = models.TextField(null=True, blank=True)
+    sex = models.CharField(null=True, blank=True, max_length=100)
 
 
     #attributes

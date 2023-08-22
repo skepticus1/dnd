@@ -15,6 +15,13 @@ const CreateCharacterPage = () => {
     const userContext = useUser()
     const { characterId } = useParams()
 
+
+    // reset character data to clean any lingering data
+    useEffect(() => {
+        resetCharacter()
+    }, [])
+
+    // load character data if there is a character id
     useEffect(() => {
         if(characterId) {
             axios.get(`${userContext.backendURL}chars/edit/${characterId}/`)
@@ -87,52 +94,60 @@ const CreateCharacterPage = () => {
 
     console.log(charData)
     return (
-        <div className="container mt-5">
-            <div className=''>
-                {/* Header Information */}
-                <CharSheetHeader />
-                {/* Main Stats Section */}
-                <div className="row m-1">
-                    <div className="col-md-12">
-                        <CharSheetAttributes />
-                    </div>
-                    <div className="col-md-12">
-                        <CharSheetSavingHitDice />
-                    </div>
-                    <div className="col-md-12">
-                        <CharSheetFeatures />
-                    </div>
-                    <div className='col-md-12'>
-                        <CharSheetEquipmentSpells />
+        <>
+            <div className='bg-secondary'>
+                <div style={{height: "75px"}}></div>
+                <div className="container bg-dark border p-3">
+                    <div className='bg-secondary'>
+                            <CharSheetHeader />
+                        <div className="row m-1">
+                            <div className='border bg-light p-1'></div>
+                            <div className="col-md-12">
+                                <CharSheetAttributes />
+                            </div>
+                            <div className='border bg-light p-1'></div>
+                            <div className="col-md-12">
+                                <CharSheetSavingHitDice />
+                            </div>
+                            <div className='border bg-light p-1'></div>
+                            <div className="col-md-12">
+                                <CharSheetFeatures />
+                            </div>
+                            <div className='border bg-light p-1'></div>
+                            <div className='col-md-12'>
+                                <CharSheetEquipmentSpells />
+                            </div>
+                        </div>
+                        {/* Submit Button */}
+                        <div className="row mt-3">
+                            <div className="col-md-12">
+                                {characterId ? (
+                                    <>
+                                        <button 
+                                            type='submit'
+                                            className='btn btn-dark'
+                                            onClick={handleSave}
+                                        >Save</button>
+                                        <button
+                                            type='button'
+                                            className='btn btn-danger ml-2'
+                                            onClick={handleDelete}
+                                        >Delete</button>
+                                    </>
+                                ) : (
+                                    <button 
+                                        type='submit'
+                                        className='btn btn-dark'
+                                        onClick={handleSubmit}
+                                    >Submit</button>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {/* Submit Button */}
-                <div className="row mt-3">
-                    <div className="col-md-12">
-                        {characterId ? (
-                            <>
-                                <button 
-                                    type='submit'
-                                    className='btn btn-dark'
-                                    onClick={handleSave}
-                                >Save</button>
-                                <button
-                                    type='button'
-                                    className='btn btn-danger ml-2'
-                                    onClick={handleDelete}
-                                >Delete</button>
-                            </>
-                        ) : (
-                            <button 
-                                type='submit'
-                                className='btn btn-dark'
-                                onClick={handleSubmit}
-                            >Submit</button>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </div> 
+            
+            </div> 
+        </>
     );
 }
 

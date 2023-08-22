@@ -35,30 +35,40 @@ const CharSheetAttributes = () => {
 
     return (
         <>
-            <div className="small text-center">
-                Attributes
-                <div className="row border p-1">
+            <div className="">
+                <div className="text-center"><strong>Attributes</strong></div>
+                <div className="row">
                         {attributes.map((attribute, index) => (
-                            <div key={index} className='col-md-2'>
-                                <div className="d-flex">
-                                    <label className='text-center m-2'>{attribute.name}</label>
-                                    <input 
-                                        type="number" 
-                                        className="form-control text-center" 
-                                        placeholder={attribute.name} 
-                                        value={charData[attribute.key + "Value"] || 0}
-                                        onChange={(e) => handleAttributeChange(e, attribute.key)} 
-                                    />
-                                    {` + ${getRaceAttributeBonus(attribute.key)}` || 0 }
+                            <div key={index} className='col mb-3'>
+                                <div className="row align-items-center">
+                                    <div className="col-6 text-right">
+                                        {attribute.name}
+                                    </div>
+                                    <div className="col-6">
+                                        <input 
+                                            type="number" 
+                                            className="form-control text-center" 
+                                            placeholder={attribute.name} 
+                                            value={charData[attribute.key + "Value"] || 0}
+                                            onChange={(e) => handleAttributeChange(e, attribute.key)} 
+                                        />
+                                    </div>
+                                    <div className="col-12 text-left">
+                                        {` + ${getRaceAttributeBonus(attribute.key)}` || 0 }
+                                    </div>
                                 </div>
-                                <div className="d-flex">
-                                    <label className='text-center m-2'>Bonus</label>
-                                    <div className='form-control text-center p-1'>
+                                <div className="row mt-2">
+                                    <div className="col-6 text-right">
+                                        Bonus:
+                                    </div>
+                                    <div className='col-6'>
                                         {charData[attribute.key + "Bonus"] || 0}
                                     </div>
                                 </div>
+                            
                             </div>
                         ))}
+                    
                 </div>
             </div>
         </>

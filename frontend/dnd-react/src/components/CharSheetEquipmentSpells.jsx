@@ -54,60 +54,82 @@ const CharSheetEquipmentSpells = () => {
 
     return (
         <>
-            <div className='border d-flex'>
+            <div className='d-flex'>
                 <div className="col-md-4">
-                    skills
-                    <ul>
-                        {charData.character_skills && Object.entries(charData.character_skills).map(([skillName, skillValue]) => (
-                            <li key={skillName}>
-                                {formatSkillName(skillName)}:
-                                <input 
-                                    type='number'
-                                    className="form-control"
-                                    value={skillValue || 0}
-                                    onChange={(e) => handleSkillChange(skillName, e.target.value)}
-                                />
-                            </li>
-                        ))}
-                    </ul>
+                    <strong className="">Skills</strong>
+                    
+                        <ul>
+                            {charData.character_skills && Object.entries(charData.character_skills).map(([skillName, skillValue]) => (
+                                
+
+                                    <li key={skillName} className="mb-2">
+                                        <div className="row">
+                                           <div className="col-6">
+                                                <label className="mr-2">{formatSkillName(skillName)}:</label>
+                                            </div> 
+                                            <div className="col-4">
+                                                <input 
+                                                    type='number'
+                                                    className="form-control col-md-4"
+                                                    value={skillValue || 0}
+                                                    onChange={(e) => handleSkillChange(skillName, e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </li>
+                                
+                            ))}
+                        </ul>
+                    
                 </div>
                 <div className='col-md-4'>
-                    <div>
-                        spells
-                        <select 
-                            className=""
-                            value={currentSpell} 
-                            onChange={(e) => setCurrentSpell(e.target.value)}>
-                                {availableSpells && availableSpells.length > 0 && availableSpells.map(spell =>
-                                    <option key={spell.index} value={spell.name}>{spell.name}</option>
-                                )}
-                        </select>
-                        <button onClick={() => addSpell(currentSpell)}>+</button>
+                    <strong>Spells</strong>
+                    <div className="row mb-3">
+                        <div className="col-8">
+                            <select 
+                                className="form-control"
+                                value={currentSpell} 
+                                onChange={(e) => setCurrentSpell(e.target.value)}>
+                                    {availableSpells && availableSpells.length > 0 && availableSpells.map(spell =>
+                                        <option key={spell.index} value={spell.name}>{spell.name}</option>
+                                    )}
+                            </select>
+                        </div>
+                        <div className="col-4">
+                            <button className="btn btn-dark btn-block" onClick={() => addSpell(currentSpell)}>+</button>
+                        </div>
                     </div>
-                    <ul>
+                    <ul className="list-group">
                         {charData.character_spells && charData.character_spells.length > 0 && charData.character_spells.map(spell => (
-                            <li key={spell}>
+                            <li key={spell} className="list-group-item d-flex justify-content-between align-items-center">
                                 {spell}
-                                <button onClick={() => removeSpell(spell)}>-</button>
+                                <button className='btn btn-danger btn-sm' onClick={() => removeSpell(spell)}>-</button>
                             </li>
                         ))}
                     </ul>
                 </div>
                 <div className="col-md-4">
-                    <div>
-                        equipment
-                        <select value={currentEquipment} onChange={(event) => setCurrentEquipment(event.target.value)}>
-                            {availableEquipment && availableEquipment.length > 0 && availableEquipment.map(equip =>
-                                <option key={equip.index} value={equip.name}>{equip.name}</option>
-                            )}
-                        </select>
-                        <button onClick={() => addEquipment(currentEquipment)}>+</button>
+                    <strong>Equipment</strong>
+                    <div className="row mb-3">
+                        <div className="col-8">
+                            <select
+                                className="form-control" 
+                                value={currentEquipment} 
+                                onChange={(event) => setCurrentEquipment(event.target.value)}>
+                                {availableEquipment && availableEquipment.length > 0 && availableEquipment.map(equip =>
+                                    <option key={equip.index} value={equip.name}>{equip.name}</option>
+                                )}
+                            </select>
+                        </div>
+                        <div className="col-4">
+                            <button className="btn btn-dark" onClick={() => addEquipment(currentEquipment)}>+</button>
+                        </div>
                     </div>
-                    <ul>
+                    <ul className="list-group">
                         {charData.character_equipment && charData.character_equipment.length > 0 && charData.character_equipment.map(equip => (
-                            <li key={equip}>
+                            <li key={equip} className="list-group-item d-flex justify-content-between align-items-center">
                                 {equip}
-                                <button onClick={() => removeEquipment(equip)}>-</button>
+                                <button className='btn btn-danger btn-sm' onClick={() => removeEquipment(equip)}>-</button>
                             </li>
                         ))}
                     </ul>

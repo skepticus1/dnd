@@ -1,16 +1,29 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useCharacter } from '../context/CharContext';
+import { useParams } from 'react-router-dom';
 
 
 
 function CharSheetImage() {
+    const { charData, setCharData } = useCharacter()
     const [imageSrc, setImageSrc] = useState('');
     const URL = "http://localhost:8000/api/chars/generate_image/";
 
+    const savedCharImg = `data:image/png;base64,${charData.image_data}`
+    //console.log(savedCharImg) //long string, only log if t/sing
+
     const generateImage = () => {
+        console.log("making a character with this values\n",
+                        `sex : ${charData.sex}`,
+                        `race : ${charData.race}`,
+                        `class : ${charData.charClass}`,
+                        `hair : ${charData.hair}`,
+                        `eyes : ${charData.eyes}`,
+                        `skin : ${charData.skin}`)
         // set the prompt
         const prompt = {
-            "prompt": "(best-quality:0.8), (best-quality:0.8), perfect anime illustration of a landscape of a Elusive Exhausted [Train station:Angkor Wat:2] and Moving Bangladeshi Convenience store, Sunny, Anime screencap, Flustered, Street Art, Gel lighting, Fish-eye Lens, Fujicolor, caustics, surreal design, ultra high res, HDR",
+            "prompt": `anime portrait of ${charData.sex} ${charData.race}, ${charData.charClass}, ${charData.hair} hair, ${charData.eyes} eyes, ${charData.skin} skin, HDR`,
             "negative_prompt": "(worst quality:0.8), verybadimagenegative_v1.3 easynegative, (surreal:0.8), (modernism:0.8), (art deco:0.8), (art nouveau:0.8)",
             "steps": 40,
             "cfg_scale": 7,
@@ -19,19 +32,22 @@ function CharSheetImage() {
             "sampler_index": "DPM++ 2M Karras",
         }
 
-        // api request
+        // api request to stable diffusion api
         axios.post(URL, prompt)
             .then(response => {
                 const imageData = response.data.images && response.data.images[0]
                 if(imageData){
                     const base64Image = imageData.split(",", 1)[0]
+                    setCharData(prevData => ({...prevData, image_data: base64Image}))
                     setImageSrc(`data:image/png;base64,${base64Image}`)
+
                 }
             })
             .catch(error => {
                 console.log("Error fetching image: ", error)
             })
     }
+
 
     const fetchModels = async () => {
         try {
@@ -66,13 +82,16 @@ function CharSheetImage() {
     return (
         <>
             <div>
-                <button onClick={generateImage}>Generate Image</button>
-                {imageSrc ? <img src={imageSrc} alt="CharacterSheet" />: <p>Image will appear here...</p>}
             </div>
             <div>
-                <button onClick={getModels}>Get Models</button>
-                <button onClick={fetchModels}>Fetch Models</button>
-                
+                <div className='text-center'>
+                    <button className='btn btn-dark' onClick={generateImage}>Generate Image</button>
+                </div>
+                {charData.image_data ?
+                    <img src={savedCharImg} alt="Saved Char Image" className='img-fluid border p-1' /> :
+                    <p> No character image available.</p>
+                }
+               
             </div>
         </>
     )

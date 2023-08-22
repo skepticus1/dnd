@@ -107,10 +107,9 @@ const CharSheetHeader = () => {
 
     return (
 
-        <div className="border">
+        <div className="">
             <div className="row">
                 <div className="col-md-4">
-                    img
                     <CharSheetImage />
                 </div>
                 <div className="col-md-4">
@@ -168,6 +167,34 @@ const CharSheetHeader = () => {
                         value={charData.hair || ''}
                         onChange={(e) => updateCharData('hair', e.target.value)}
                     />
+                    <div className="mt-2">
+                        <div className="form-check form-check-inline">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="sex"
+                                id="male"
+                                value="male"
+                                checked={charData.sex === "male"}
+                                onChange={(e) => updateCharData('sex', e.target.value)}
+                            />
+                            <label className="form-check-label" htmlFor="male">Male</label>
+                        </div>
+                    </div>
+                    <div className="mt-2">
+                        <div className="form-check form-check-inline">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="sex"
+                                id="female"
+                                value="female"
+                                checked={charData.sex === "female"}
+                                onChange={(e) => updateCharData('sex', e.target.value)}
+                            />
+                            <label className="form-check-label" htmlFor="female">Female</label>
+                        </div>
+                    </div>
                 </div>
                 <div className="col-md-4">
                     <label htmlFor="charName" className="small text-center d-block">Name</label>

@@ -35,41 +35,40 @@ const CharSheetSavingHitDice = () => {
 
     return (
         <>
-            <div className="small text-center">
-                Saving Throws and Hit Dice
-                <div className="row border p-1">
-                    <div className="col-md-4 d-flex flex-column border">
+            <div className="">
+                <div className="row">
+                    <div className="col-md-4 text-center">
                         <strong>Saving Throws</strong>
-                            
-                                {Object.entries(attributeToBonusMapping).map(([attribute, attr]) => ( // returns an array of an array. different than Object.keys
-                                    <div className="d-flex" key={attribute}>
-                                        <div className="d-flex">
-                                            {attribute}
-                                            <input
-                                                type='number'
-                                                className='form-control ml-2'
-                                                value={charData[attr + 'Saving'] || 0}
-                                                onChange={(e) => handleSavingThrowChange(attr, e)}
-                                            />
-                                        </div>
+                            {Object.entries(attributeToBonusMapping).map(([attribute, attr]) => ( // returns an array of an array. different than Object.keys
+                                <div className="row mb-3" key={attribute}>
+                                    <div className="col-4">
+                                        {attribute}
                                     </div>
-                                ))}
-                                <div className='d-flex border-top'>
-                                    <input type="checkbox" />
-                                    <div className='ml-2'>Inspiration</div>
+                                    <div className="col-4">
+                                        <input
+                                            type='number'
+                                            className='form-control ml-2'
+                                            value={charData[attr + 'Saving'] || 0}
+                                            onChange={(e) => handleSavingThrowChange(attr, e)}
+                                        />
+                                    </div>
                                 </div>
-                                <div className='d-flex border-bottom'>
-                                    <input type="checkbox" />
-                                    <div>Proficiency Bonus</div>
-                                </div>
-                            
+                            ))}
+                            <div className='d-flex border-top'>
+                                <input type="checkbox" />
+                                <div className='ml-2'>Inspiration</div>
+                            </div>
+                            <div className='d-flex border-bottom'>
+                                <input type="checkbox" />
+                                <div>Proficiency Bonus</div>
+                            </div>        
                     </div>
-
-                    
-                    <div className="col-md-4">
-                        <div className='m-1'>
-                            <div>
-                                Armor Class
+                    <div className="col-md-4 text-center">
+                        <div className="row mb-3">
+                            <div className="col-6">
+                                <strong>Armor Class</strong>
+                            </div>
+                            <div className="col-4">
                                 <input 
                                     type="number" 
                                     className="form-control"
@@ -78,9 +77,11 @@ const CharSheetSavingHitDice = () => {
                                 />
                             </div>
                         </div>
-                        <div className='m-1'>
-                            <div>
-                                Initiative
+                        <div className='row mb-3'>
+                            <div className="col-6">
+                                <strong>Initiative</strong>
+                            </div>
+                            <div className="col-4">
                                 <input 
                                     type="number" 
                                     className="form-control"
@@ -89,9 +90,11 @@ const CharSheetSavingHitDice = () => {
                                 />
                             </div>
                         </div>
-                        <div className='m-1'>
-                            <div>
-                                speed
+                        <div className='row mb-3'>
+                            <div className="col-6">
+                                <strong>Speed</strong>
+                            </div>
+                            <div className="col-4">
                                 <input 
                                     type="number" 
                                     className="form-control"
@@ -101,10 +104,12 @@ const CharSheetSavingHitDice = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4">
-                        <div>
-                            <div>
-                                current hp
+                    <div className="col-md-4 text-center">
+                        <div className="row mb-3">
+                            <div className="col-6">
+                                <strong>Current HP</strong>
+                            </div>
+                            <div className="col-4">
                                 <input 
                                     type="number" 
                                     className="form-control"
@@ -112,8 +117,12 @@ const CharSheetSavingHitDice = () => {
                                     onChange={(e) => handleStatChange(e, 'currentHitPoints')}
                                 />
                             </div>
-                            <div>
-                                temp hp
+                        </div>
+                        <div className="row mb-3">
+                            <div className="col-6">
+                                <strong>Temp HP</strong>
+                            </div>
+                            <div className="col-4">
                                 <input 
                                     type="number" 
                                     className="form-control"
@@ -121,8 +130,12 @@ const CharSheetSavingHitDice = () => {
                                     onChange={(e) => handleStatChange(e, 'tempHitPoints')}
                                 />
                             </div>
-                            <div>
-                                hit dice
+                        </div>
+                        <div className="row mb-3">
+                            <div className="col-6">
+                                <strong>Hit Dice</strong>
+                            </div>
+                            <div className="col-4">
                                 <input 
                                     type="number" 
                                     className="form-control"
@@ -130,8 +143,12 @@ const CharSheetSavingHitDice = () => {
                                     onChange={(e) => handleStatChange(e, 'hitDice')}
                                 />
                             </div>
-                            <div className="">
-                                death saves success     
+                        </div>
+                        <div className="row mb-3">
+                            <div className="col-6">
+                                <strong>Death Save Success</strong>
+                            </div>
+                            <div className="col-4">
                                 <input 
                                     type="number" 
                                     className="form-control"
@@ -139,8 +156,12 @@ const CharSheetSavingHitDice = () => {
                                     onChange={(e) => handleStatChange(e, 'deathSuccess')}
                                 />
                             </div>
-                            <div className="">
-                                death saves failure
+                        </div>
+                        <div className="row mb-3">
+                            <div className="col-6">
+                                <strong>Death Save Failure</strong>
+                            </div>
+                            <div className="col-4">
                                 <input 
                                     type="number" 
                                     className="form-control"

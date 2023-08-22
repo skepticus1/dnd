@@ -36,6 +36,8 @@ def handle_character_create(character, data):
                 eyes=data.get('eyes'),
                 skin=data.get('skin'),
                 hair=data.get('hair'),
+                image_data=data.get('image_data'),
+                sex=data.get('sex'),
                 #attributes
                 strValue=data.get('strValue'),
                 strBonus=data.get('strBonus'),
@@ -214,6 +216,8 @@ def handle_character_update(character, data):
             character.eyes=data.get('eyes')
             character.skin=data.get('skin')
             character.hair=data.get('hair')
+            character.image_data=data.get('image_data')
+            character.sex=data.get('sex')
             #attributes
             character.strValue=data.get('strValue')
             character.strBonus=data.get('strBonus')

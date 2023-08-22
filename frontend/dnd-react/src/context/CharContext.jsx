@@ -29,6 +29,8 @@ export const CharacterProvider = ({ children }) => {
         eyes: str,
         skin: str,
         hair: str,
+        image_data: str,
+        sex: str,
 
         // attributes
         strValue: num10,
@@ -129,6 +131,8 @@ export const CharacterProvider = ({ children }) => {
             eyes: str,
             skin: str,
             hair: str,
+            image_data: str,
+            sex: str,
     
             // attributes
             strValue: num10,
@@ -305,8 +309,9 @@ export const CharacterProvider = ({ children }) => {
         })
     }
     const removeSpell = (spell) => {
+        console.log("removing spell: ", spell)
         setCharData(prev => {
-            return {...prev, character_spell: prev.character_spells.filter(s => s != spell)}
+            return {...prev, character_spells: prev.character_spells.filter(s => s != spell)}
         })
     }
 
