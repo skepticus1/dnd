@@ -21,9 +21,9 @@ export default function LoginPage() {
             })
 
             let token = response.data.token
-            console.log(token)
+            //console.log(token)
             localStorage.setItem('token', token)
-            console.log(response.data)
+            //console.log(response.data)
             setUser(response.data)
             navigate('/')
         } catch (error) {

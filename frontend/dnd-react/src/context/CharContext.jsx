@@ -213,12 +213,12 @@ export const CharacterProvider = ({ children }) => {
     }
 
     const updateCharData = (key, value) => {
-        console.log(`setting ${key} to ${value}`)
-        console.log(typeof(value))
-        console.log(typeof(key))
+        //console.log(`setting ${key} to ${value}`)
+        //console.log(typeof(value))
+        //console.log(typeof(key))
         setCharData(prev => {
             const updatedData = { ...prev, [key]: value }
-            console.log('updateCharData: updatedData:', updatedData)
+            //console.log('updateCharData: updatedData:', updatedData)
             return updatedData;
         })
     }

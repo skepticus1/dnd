@@ -6,7 +6,7 @@ import LoginPage from "./pages/LoginPage.jsx"
 import LogoutPage from "./pages/LogoutPage.jsx"
 import InfoPage from "./pages/InfoPage.jsx";
 import CreateCharacterPage from "./pages/CreateCharacterPage.jsx"
-import EditCharacterPage from "./pages/EditCharacterPage.jsx"
+import Error404Page from "./pages/Error404Page.jsx";
 
 
 
@@ -43,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "editCharacter/:characterId",
                 element: <CreateCharacterPage />
+            },
+            {
+                path: "*",
+                element: <Error404Page />
             },
         ]
     }

@@ -13,6 +13,15 @@ function CharSheetImage() {
     const savedCharImg = `data:image/png;base64,${charData.image_data}`
     //console.log(savedCharImg) //long string, only log if t/sing
 
+    
+    // auth details
+    const token = localStorage.getItem('token')
+    const config = {
+        headers: {
+            'Authorization': `Token ${token}`
+        }
+    }
+
     const generateImage = () => {
         console.log("making a character with this values\n",
                         `sex : ${charData.sex}`,
@@ -25,7 +34,7 @@ function CharSheetImage() {
         const prompt = {
             "prompt": `anime portrait of ${charData.sex} ${charData.race}, ${charData.charClass}, ${charData.hair} hair, ${charData.eyes} eyes, ${charData.skin} skin, HDR`,
             "negative_prompt": "(worst quality:0.8), verybadimagenegative_v1.3 easynegative, (surreal:0.8), (modernism:0.8), (art deco:0.8), (art nouveau:0.8)",
-            "steps": 40,
+            "steps": 20,
             "cfg_scale": 7,
             "width": 512,
             "height": 512,

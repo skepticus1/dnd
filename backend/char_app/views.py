@@ -381,6 +381,8 @@ def handle_character_update(character, data):
         return character
 
 class CreateCharacter(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         print('POST DATA:\n', request.data)
@@ -390,6 +392,8 @@ class CreateCharacter(APIView):
         return Response({"id": character.id}, status=status.HTTP_201_CREATED)
 
 class Characters(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         # print(request.user)
@@ -399,6 +403,8 @@ class Characters(APIView):
         return Response(serializer.data)
     
 class CharacterData(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     # retreive character data for displaying on edit character page.
     def get(self, request, character_id):
@@ -445,6 +451,7 @@ class SDModelsView(APIView):
             return Response({"error": f"Network error while fetching SD models: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class GenerateImage(APIView):
+
     def post(self, request):
         prompt_data = request.data
 

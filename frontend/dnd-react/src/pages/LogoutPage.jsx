@@ -13,7 +13,25 @@ export default function LogoutPage() {
 
     return (
         <>
-            <h2>Logout Page</h2>
+            <div className='img_background'>
+                <div style={{height: "75px"}}></div>
+
+                <div className='container'>
+                    <div className="row justify-content-center">
+                        {/* User Information Card */}
+                        <div className="col-md-6 mb-3">
+                            <div className="card bg-secondary text-white">
+                                <div className="card-header bg-dark">
+                                    Successfuly Logged Out
+                                </div>
+                                <div className="card-body">
+                                    Thanks for visiting!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

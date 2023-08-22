@@ -30,7 +30,7 @@ export default function HomePage() {
             async function fetchCharacters() {
                 // get token from local storage, will change later to cookie
                 const token = localStorage.getItem('token')
-                console.log('my token: ', token)
+                //console.log('my token: ', token)
                 
                 try {
                     const response = await axios.get(`${userContext.backendURL}chars/characters/`, {
@@ -40,7 +40,7 @@ export default function HomePage() {
                     })
                     if(response.status === 200) {
                         setCharacters(response.data)
-                        console.log(response.data)
+                        //console.log(response.data)
                     }
                 }catch(error){
                     console.error("Error fetching characters:", error)

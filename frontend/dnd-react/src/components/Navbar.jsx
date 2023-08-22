@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom'
 import {useUser} from '../context/UserContext.jsx'
 import {useCharacter} from '../context/CharContext.jsx'
+import { useEffect } from 'react';
 
 
 export default function Navbar() {
     const { user } = useUser();
-    const { characterName } = useCharacter();
+    const { charData } = useCharacter();
 
     return (
         <>
@@ -31,7 +32,7 @@ export default function Navbar() {
                 </div>
                 <div>
                     <span className='navbar-text m-2'>
-                        {characterName && `Selected Character: ${characterName}`}
+                        {charData.charName && `Selected Character: ${charData.charName}`}
                         
                     </span>
                 </div>

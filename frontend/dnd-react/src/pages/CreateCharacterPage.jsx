@@ -15,6 +15,15 @@ const CreateCharacterPage = () => {
     const userContext = useUser()
     const { characterId } = useParams()
 
+    // auth details
+    const token = localStorage.getItem('token')
+    const config = {
+        headers: {
+            'Authorization': `Token ${token}`
+        }
+    }
+    
+
 
     // reset character data to clean any lingering data
     useEffect(() => {
@@ -24,7 +33,7 @@ const CreateCharacterPage = () => {
     // load character data if there is a character id
     useEffect(() => {
         if(characterId) {
-            axios.get(`${userContext.backendURL}chars/edit/${characterId}/`)
+            axios.get(`${userContext.backendURL}chars/edit/${characterId}/`, config)
                 .then(response => {
                     const data = response.data
                     setCharData(data)
@@ -42,7 +51,7 @@ const CreateCharacterPage = () => {
         }
         console.log('chardata handleSave: ', tempCharData)
         try{
-            const response = await axios.put(`${userContext.backendURL}chars/edit/${characterId}/`, tempCharData);
+            const response = await axios.put(`${userContext.backendURL}chars/edit/${characterId}/`, tempCharData, config);
 
             if(response.status === 200) {
                 console.log("Character updated: ", response.data)
@@ -58,7 +67,7 @@ const CreateCharacterPage = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await axios.delete(`${userContext.backendURL}chars/delete/${characterId}`)
+            const response = await axios.delete(`${userContext.backendURL}chars/delete/${characterId}`, config)
             if(response.status === 204) {
                 console.log("Character Deleted")
                 navigate('/')
@@ -77,7 +86,7 @@ const CreateCharacterPage = () => {
         }
         console.log('chardata handlesubmnit: ', tempCharData)
         try {
-            const response = await axios.post(`${userContext.backendURL}chars/create/`, tempCharData)
+            const response = await axios.post(`${userContext.backendURL}chars/create/`, tempCharData, config)
             
             if(response.status === 201) {
                 console.log('Character saved:', response.data)
@@ -92,7 +101,7 @@ const CreateCharacterPage = () => {
         }
     }
 
-    console.log(charData)
+    //console.log(charData)
     return (
         <>
             <div className='bg-secondary'>
