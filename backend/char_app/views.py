@@ -470,51 +470,55 @@ class GenerateImage(APIView):
 class GeneratePDFView(APIView):
 
         def post(self, request):
+            print("starting generatepdfview")
             data = request.data
+            print('recieved data', data)
+            
+        #     # special case for ClassLevel pdf field
+        #     class_data = data.get("class", "")
+        #     level_data = data.get("level", "")
+        #     class_level_data = f"{class_data} {level_data}"
 
-            # # special case for ClassLevel pdf field
-            # class_data = data.get("class", "")
-            # level_data = data.get("level", "")
-            # class_level_data = f"{class_data} {level_data}"
-
-            # # get data for fields to fill in on the pdf
-            # fields = {
-            #     "ClassLevel": class_level_data,
-            #     "(CharacterName)": data.get("charName", ""),
-            #     "Background": data.get("background", ""),
-            #     "Race": data.get("race", ""),
-            #     "Alignment": data.get("alignment", ""),
+        #     # get data for fields to fill in on the pdf
+        #     fields = {
+        #         "ClassLevel": class_level_data,
+        #         "(CharacterName)": data.get("charName", ""),
+        #         "Background": data.get("background", ""),
+        #         "Race": data.get("race", ""),
+        #         "Alignment": data.get("alignment", ""),
 
 
-            # }
-            # charName = data.get("charName", "")
+        #     }
+        #     charName = data.get("charName", "")
 
-            # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-            # pdf_path = os.path.join(BASE_DIR, 'data', 'dnd_char_sheet.pdf')
+        #     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        #     pdf_path = os.path.join(BASE_DIR, 'data', 'dnd_char_sheet.pdf')
             
 
-            # print('this is my current working directory', os.getcwd())
-            # # load the pdf template
-            # template_pdf = PdfReader(pdf_path)
+        #     print('this is my current working directory', os.getcwd())
+        #     # load the pdf template
+        #     template_pdf = PdfReader(pdf_path)
+        #     print('loaded pdf template')
 
-            # # fill in the pdf
-            # for field in template_pdf.pages[0]['/Annots']:
-            #     key = field['/T']
-            #     value = fields.get(key)
-            #     if value:
-            #         field.update(pdfrw.PdfDict(V='{}'.format(value)))
+        #     # fill in the pdf
+        #     for field in template_pdf.pages[0]['/Annots']:
+        #         key = field['/T']
+        #         value = fields.get(key)
+        #         print('key : ', key, ' value : ', value)
+        #         if value:
+        #             field.update(pdfrw.PdfDict(V='{}'.format(value)))
 
-            # # save the filled pdf to a temp file or memory
-            # output = BytesIO()
-            # with open('debug_filled.pdf', 'wb') as f:
-            #     PdfWriter().write(f, template_pdf)
-            # PdfWriter().write(output, template_pdf)
+        #     # save the filled pdf to a temp file or memory
+        #     output = BytesIO()
+        #     # with open('debug_filled.pdf', 'wb') as f:
+        #     #     PdfWriter().write(f, template_pdf)
+        #     PdfWriter().write(output, template_pdf)
 
-            # # rewind buff
-            # output.seek(0)
+        #     # rewind buff
+        #     output.seek(0)
 
-            # # serve the filled pdf as a response
-            # response = FileResponse(output, content_type='application/pdf')
-            # response['Content-Disposition'] = 'attachment; filename="filled_character_sheet.pdf"'
+        #     # serve the filled pdf as a response
+        #     response = FileResponse(output, content_type='application/pdf')
+        #     response['Content-Disposition'] = 'attachment; filename="filled_character_sheet.pdf"'
 
             # return response

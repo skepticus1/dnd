@@ -160,11 +160,6 @@ const CreateCharacterPage = () => {
                                             className='btn btn-danger ml-2'
                                             onClick={handleDelete}
                                         >Delete</button>
-                                        <button
-                                            type='button'
-                                            className='btn btn-danger ml-2'
-                                            onClick={handlePrint}
-                                        >Print</button>
                                     </>
                                 ) : (
                                     <button 
