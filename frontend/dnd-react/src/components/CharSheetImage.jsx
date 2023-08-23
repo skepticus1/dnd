@@ -32,8 +32,8 @@ function CharSheetImage() {
                         `skin : ${charData.skin}`)
         // set the prompt
         const prompt = {
-            "prompt": `anime portrait of ${charData.sex} ${charData.race}, ${charData.charClass}, ${charData.hair} hair, ${charData.eyes} eyes, ${charData.skin} skin, HDR`,
-            "negative_prompt": "(worst quality:0.8), verybadimagenegative_v1.3 easynegative, (surreal:0.8), (modernism:0.8), (art deco:0.8), (art nouveau:0.8)",
+            "prompt": `attractive upper portrait of a ${charData.sex} ${charData.race}, ${charData.charClass}, ${charData.hair} hair, ${charData.eyes} eyes, ${charData.skin} skin, HDR`,
+            "negative_prompt": "nude, naked, (worst quality:0.8), verybadimagenegative_v1.3 easynegative, (surreal:0.8), (modernism:0.8), (art deco:0.8), (art nouveau:0.8)",
             "steps": 20,
             "cfg_scale": 7,
             "width": 512,

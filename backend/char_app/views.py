@@ -7,6 +7,10 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Character, Skill, Language, Trait, Feature, Proficiency, Spell, Equipment
 from user_app.models import User
 from .serializers import CharacterSerializer
+from pdfrw import PdfReader, PdfWriter, IndirectPdfDict
+from django.http import FileResponse
+from io import BytesIO
+import os
 import requests
 
 def handle_character_create(character, data):
@@ -462,3 +466,55 @@ class GenerateImage(APIView):
             return Response(response.json(), status=status.HTTP_200_OK)
         else:
             return Response({"error": "failed to generate image"}, status=status.HTTP_400_BAD_REQUEST)
+        
+class GeneratePDFView(APIView):
+
+        def post(self, request):
+            data = request.data
+
+            # # special case for ClassLevel pdf field
+            # class_data = data.get("class", "")
+            # level_data = data.get("level", "")
+            # class_level_data = f"{class_data} {level_data}"
+
+            # # get data for fields to fill in on the pdf
+            # fields = {
+            #     "ClassLevel": class_level_data,
+            #     "(CharacterName)": data.get("charName", ""),
+            #     "Background": data.get("background", ""),
+            #     "Race": data.get("race", ""),
+            #     "Alignment": data.get("alignment", ""),
+
+
+            # }
+            # charName = data.get("charName", "")
+
+            # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            # pdf_path = os.path.join(BASE_DIR, 'data', 'dnd_char_sheet.pdf')
+            
+
+            # print('this is my current working directory', os.getcwd())
+            # # load the pdf template
+            # template_pdf = PdfReader(pdf_path)
+
+            # # fill in the pdf
+            # for field in template_pdf.pages[0]['/Annots']:
+            #     key = field['/T']
+            #     value = fields.get(key)
+            #     if value:
+            #         field.update(pdfrw.PdfDict(V='{}'.format(value)))
+
+            # # save the filled pdf to a temp file or memory
+            # output = BytesIO()
+            # with open('debug_filled.pdf', 'wb') as f:
+            #     PdfWriter().write(f, template_pdf)
+            # PdfWriter().write(output, template_pdf)
+
+            # # rewind buff
+            # output.seek(0)
+
+            # # serve the filled pdf as a response
+            # response = FileResponse(output, content_type='application/pdf')
+            # response['Content-Disposition'] = 'attachment; filename="filled_character_sheet.pdf"'
+
+            # return response
